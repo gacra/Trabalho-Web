@@ -1,0 +1,96 @@
+<!--Augusto Torres dos Santos nºUSP 7144560
+    Creunivar Toledo de Abreu nºUSP
+    Guilherme José Acra nºUSP-->
+
+<!DOCTYPE>
+<html lang="pt-br">
+  <head>
+    <title>{% block title %} Ki Gostoso {% end block %}</title>
+
+    <meta charset="utf-8"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    {% load static %}
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="static/css/materialize.css"  media="screen,projection"/>
+  </head>
+
+  <body class="card-panel yellow lighten-5">
+    <div class="row">
+
+      <!--header contendo o logo, login, cadastro e busca.-->
+      <header class="row col s12 m12 l12 card-panel red darken-4 valign-wrapper">
+
+        <div class="logo col s3 m3 l3 valign-wrapper">
+          <img class="responsive-img" src="static/images/Logo.png" alt="logo do site Ki Delicia"/>
+        </div>
+
+        <div class="links_cadastro col s6 m6 l6">
+          <!--Colocar nos href os caminhos para as respectivas páginas após incluir os urls.-->
+          <p style="text-align: right;"><a href="" class="white-text">Entrar</a><br/><a href="" class="white-text">Inscreva-se</a></p>
+        </div>
+
+        <nav class="nav-wrapper col s3 m3 l3 card-panel red darken-4 valign-wrapper">
+          <form>
+            <div class="input-field">
+              <input id="search" type="search" required>
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
+        </nav>
+
+      </header>
+      <!--nave contendo link de algumas páginas.-->
+      <nav class="row col s12 m12 l12 card-panel red darken-4 valign-wrapper">
+
+        <div class="nav-wrapper">
+          <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <!--Colocar nos href os caminhos para as respectivas páginas após incluir os urls.-->
+            <li><a href="">Home</a></li>
+            <li><a href="">Receitas</a></li>
+            <li><a href="">Increva-se</a></li>
+          </ul>
+        </div>
+
+      </nav>
+
+      <section class="col s12 m8 l8">
+        <!--Aqui para cada página serão inseridos as informações pertinentes aquela página.-->
+        {% block content %}{% endblock %}
+      </section>
+
+      <aside class="col s12 m4 l4 card-panel red darken-4">
+        <!--Conteudo relacionado ao conteudo principal-->
+        <ul class="collection">
+          <li class="collection-item card-panel red darken-4"><a href="" class="white-text">Cadastrar Receita</a></li>
+          <li class="collection-item card-panel red darken-4"><a href="" class="white-text">Mais Acessadas</a></li>
+          <li class="collection-item card-panel red darken-4"><a href="" class="white-text">Top 10 - Semana</a></li>
+          <li class="collection-item card-panel red darken-4"><a href="" class="white-text">Usuários</a></li>
+          <li class="collection-item card-panel red darken-4"><a href="" class="white-text">Seja um Mestre Confeiteiro</a></li>
+        </ul>
+      </aside>
+
+      <footer class="col s12 m12 l12 card-panel red darken-4 page-footer">
+        <div class="row">
+          <div class="col s12 m12 l12">
+            <h5 class="white-text">Desenvolvedores</h5>
+            <p class="white-text">Augusto Torres dos Santos</p>
+            <p class="white-text">Creunivar Toledo de Abreu</p>
+            <p class="white-text">Guilherme José Acra</p>
+          </div>
+        </div>
+
+        <div class="footer-copyright">
+            © 2017 Copyright - Todos os direitos reservados.
+        </div>
+
+      </footer>
+
+    </div>
+  </body>
+
+</html>
