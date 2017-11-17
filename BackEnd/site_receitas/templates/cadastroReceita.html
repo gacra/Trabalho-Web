@@ -44,6 +44,24 @@ window.onload=function(){
 
     <!--Imagens-->
     <div class="row">
+
+      <div class="file-field input-field col s11 m8">
+        <div class="btn">
+          <span>Imagens</span>
+          <input type="file" name="imagens" id="imagens" multiple required>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" placeholder="Insira imagens da receita">
+        </div>
+      </div>
+
+      <div id="botao" class="input-field col s12 m12 l12">
+          <button class="btn waves-effect waves-light" type="button" name="more">Nova imagem</button>
+      </div>
+    </div>
+
+    <!--Imagens
+    <div class="row">
       <div class="file-field input-field col s11 m8">
         <div class="btn">
           <span>Imagens</span>
@@ -54,6 +72,7 @@ window.onload=function(){
         </div>
       </div>
     </div>
+  -->
 
     <!--Categorias-->
     <div class="row">
@@ -128,7 +147,7 @@ window.onload=function(){
     <div class="row">
       <div class="input-field col s10 m6">
         <label for="cozimento">Método de cozimento: </label>
-        <input type="text" name="cozimento" id="cozimento" required maxlength="20">
+        <input type="text" name="cozimento" id="cozimento" maxlength="100" required maxlength="20">
       </div>
     </div>
 

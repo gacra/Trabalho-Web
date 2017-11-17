@@ -30,29 +30,36 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         return self.nome
 
 
-class DescricaoReceita(models.Model):
-    nome_usuario = models.CharField(max_length=100)
-    nome_receita = models.CharField(max_length=100)
-    descriacao_receita = models.CharField(max_length=100)
-    categoria = models.CharField(max_length=100)
-    porcoes = models.IntegerField()
-    calorias = models.IntegerField()
-    tempo_preparo = models.TimeField()
-    preparo = models.CharField(max_length=500)
-    cozimento = models.CharField(max_length=500)
+class Receita(models.Model):
+
+    DOCES = "d"
+    SALGADOS = "s"
+    BEBIDAS = "b"
+
+    ESCOLHA_CATEGORIA = (
+        (DOCES, 'Doce'),
+        (SALGADOS, 'Salgado'),
+        (BEBIDAS, 'Bebidas'),
+    )
+
+    autor = models.CharField(max_length=100, null=True)
+    nome_receita = models.CharField(max_length=50, verbose_name="nome da receita", null=True)
+    descricao = models.TextField(max_length=300, verbose_name="descrição", null=True)
+    #imagems, relação uma para muitos então criou-se a classe imagem e a relação se da pela chave estrangeira fk_receita
+    categoria = models.CharField(max_length=1, choices=ESCOLHA_CATEGORIA, default="SC")
+    procoes = models.PositiveIntegerField(verbose_name="porções", default=0)
+    val_nutricional = models.PositiveIntegerField(verbose_name="valor nutricional", default=0)
+    #ingredientes, relação um para muitos, criou-se a classe ingrediente e a relação se da pela chave estrangeira fk_receita
+    tempo_preparo = models.PositiveIntegerField(verbose_name="tempo de preparo", default=0)
+    instrucoes_preparo = models.TextField(max_length=800, verbose_name="instruções de preparo", null=True)
+    metodo_cozimento = models.CharField(max_length=100, verbose_name="método de cozimento", null=True)
+
+class Imagem(models.Model):
+    fk_receita_imagem = models.ForeignKey('Receita', on_delete=models.CASCADE)
+    imagem = models.ImageField(upload_to="static/images")
 
 class Ingrediente(models.Model):
-    nome_ingrediente = models.CharField(max_length=100)
-
-
-class Receita(models.Model):
-    fk_descricaoReceita = models.ForeignKey('DescricaoReceita', on_delete=models.CASCADE)
-    fk_ingrediente = models.ForeignKey('Ingrediente', on_delete=models.CASCADE)
-    quantidade = models.IntegerField()
-    unidade = models.CharField(max_length=20)
-
-class ImagemReceita(models.Model):
-    fk_descricaoReceita = models.ForeignKey('DescricaoReceita', on_delete=models.CASCADE)
-    nome_imagem = models.CharField(max_length=100)
-    descricao_imagem = models.CharField(max_length=100)
-    imagem = models.ImageField()
+    fk_receita_ingrediente = models.ForeignKey('Receita', on_delete=models.CASCADE, default=0)
+    nome_ingrediente = models.CharField(max_length=50, verbose_name="ingrediente")
+    quantidade = models.PositiveIntegerField(default=0)
+    unidade = models.CharField(max_length=50, default="su")

@@ -9,9 +9,9 @@ class UsuarioForm(ModelForm):
 class IngredienteForm(ModelForm):
     class Meta:
         model = Ingrediente
-        fields = ('nome_ingrediente', )
+        fields = ('nome_ingrediente', 'quantidade', 'unidade' )
 
-class ImagemReceitaForm(ModelForm):
+class ImagemForm(ModelForm):
     class Meta:
-        model = ImagemReceita
-        fields = ('imagem', 'descricao_imagem',)
+        model = Imagem
+        fields = ('imagem',)
