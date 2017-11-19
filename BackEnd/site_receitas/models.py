@@ -42,6 +42,7 @@ class Receita(models.Model):
         (BEBIDAS, 'Bebidas'),
     )
 
+    dataCadastro = models.DateField(auto_now_add=True, null=True)
     autor = models.CharField(max_length=100, null=True)
     nome_receita = models.CharField(max_length=50, verbose_name="nome da receita", null=True)
     descricao = models.TextField(max_length=300, verbose_name="descrição", null=True)
@@ -53,13 +54,36 @@ class Receita(models.Model):
     tempo_preparo = models.PositiveIntegerField(verbose_name="tempo de preparo", default=0)
     instrucoes_preparo = models.TextField(max_length=800, verbose_name="instruções de preparo", null=True)
     metodo_cozimento = models.CharField(max_length=100, verbose_name="método de cozimento", null=True)
+    rating = models.PositiveIntegerField(default=0)
+    num_votos = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['dataCadastro', '-nome_receita', 'rating']
+
+    def __str__(self):
+        return self.nome_receita
+
+    def __unicode__(self):
+        return self.nome_receita
 
 class Imagem(models.Model):
-    fk_receita_imagem = models.ForeignKey('Receita', on_delete=models.CASCADE)
-    imagem = models.ImageField(upload_to="static/images")
+    fk_receita_imagem = models.ForeignKey('Receita', related_name='imagens', on_delete=models.CASCADE)
+    imagem = models.ImageField(upload_to="static/images/")
+
+    def __str__(self):
+        return (self.fk_receita_imagem)
+
+    def __unicode__(self):
+        return self.fk_receita_imagem
 
 class Ingrediente(models.Model):
-    fk_receita_ingrediente = models.ForeignKey('Receita', on_delete=models.CASCADE, default=0)
+    fk_receita_ingrediente = models.ForeignKey('Receita', related_name='ingredientes', on_delete=models.CASCADE, default=0)
     nome_ingrediente = models.CharField(max_length=50, verbose_name="ingrediente")
     quantidade = models.PositiveIntegerField(default=0)
     unidade = models.CharField(max_length=50, default="su")
+
+    def __str__(self):
+        return ('%d %s: %s' % (self.quantidade, self.unidade, self.nome_ingrediente))
+
+    def __unicode__(self):
+        return ('%d %s: %s' % (self.quantidade, self.unidade, self.nome_ingrediente))

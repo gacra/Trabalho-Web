@@ -4,14 +4,39 @@ from .models import *
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ('nome', 'nascimento', 'cidade', 'estado', 'telefone', 'usuario',)
+        fields = '__all__'
 
 class IngredienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingrediente
-        fields = ('nome_ingrediente', 'quantidade', 'unidade' )
+        fields = '__all__'
+        #fields = ('nome_ingrediente', 'quantidade', 'unidade' )
 
 class ImagemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Imagem
-        fields = ('imagem',)
+        #fields = ('imagem',)
+        fields = '__all__'
+
+class ReceitaSerializer(serializers.ModelSerializer):
+
+    imagens =  serializers.PrimaryKeyRelatedField(many=True, queryset=Imagem.objects.all())
+    ingredientes = serializers.PrimaryKeyRelatedField(many=True, queryset=Ingrediente.objects.all())
+
+    class Meta:
+        model = Receita
+        fields = ('dataCadastro',
+                  'autor',
+                  'nome_receita',
+                  'descricao',
+                  'imagens',
+                  'categoria',
+                  'procoes',
+                  'val_nutricional',
+                  'ingredientes',
+                  'tempo_preparo',
+                  'instrucoes_preparo',
+                  'instrucoes_preparo',
+                  'metodo_cozimento',
+                  'rating',
+                  'num_votos')
