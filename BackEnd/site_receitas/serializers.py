@@ -21,7 +21,7 @@ class ImagemSerializer(serializers.ModelSerializer):
 class ReceitaSerializer(serializers.ModelSerializer):
 
     imagens = ImagemSerializer(many=True)
-    ingredientes = serializers.PrimaryKeyRelatedField(many=True, queryset=Ingrediente.objects.all())
+    ingredientes = IngredienteSerializer(many=True)
 
     class Meta:
         model = Receita

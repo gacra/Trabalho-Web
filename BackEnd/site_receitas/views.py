@@ -7,8 +7,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from rest_framework.renderers import TemplateHTMLRenderer
-
+from rest_framework.renderers import TemplateHTMLRenderer, BaseRenderer
+from django.http import Http404
 
 from .models import *
 from .serializers import *
@@ -33,8 +33,6 @@ class Home(APIView):
             'bebidas': serielizer_bebidas.data
         }
         return Response(context)
-
-
 
 class CadastroUsuario(APIView):
 
@@ -94,3 +92,11 @@ class ExibirReceitasBebidas(APIView):
         bebidas = Receita.objects.filter(categoria="b")
         serializer = ReceitaSerializer(bebidas, many=True)
         return Response({'bebidas': serializer.data})
+
+def detalheReceitaXML(request, id):
+    try:
+        receita = Receita.objects.get(id=id)
+    except Receita.DoesNotExist:
+        raise Http404
+    serializer = ReceitaSerializer(receita)
+    return render(request, 'receita.xml', {'receita': serializer.data}, content_type="application/xhtml+xml")
