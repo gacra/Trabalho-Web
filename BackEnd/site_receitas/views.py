@@ -16,18 +16,24 @@ from .serializers import *
 # Create your views here.
 class Home(APIView):
 
-    renderer_classes = [TemplateHTMLRenderer]
+    renderer_classes = (TemplateHTMLRenderer,)
     template_name = 'index.html'
 
+    #def get(self, request, format=None):
+    #    receitas = Receita.objects.all().order_by('dataCadastro')
+    #    serializer = ReceitaSerializer(receitas, many=True)
+    #    return Response(serializer.data)
+
     def get(self, request, format=None):
-        receitas = Receita.objects.all().order_by('dataCadastro')
+        receitas = Receita.objects.all().order_by('dataCadastro', '-categoria')
         serializer = ReceitaSerializer(receitas, many=True)
-        return Response(serializer.data)
+        return Response({'receitas': serializer.data})
+
 
 
 class CadastroUsuario(APIView):
 
-    renderer_classes = [TemplateHTMLRenderer]
+    renderer_classes = (TemplateHTMLRenderer)
     template_name = 'cadastroUsuario.html'
 
     def get(self, request, format=None):
@@ -63,7 +69,7 @@ class ExibirReceitasDoces(APIView):
     def get(self, request, format=None):
         doces = Receita.objects.filter(categoria="d")
         serielizer = ReceitaSerializer(doces, many=True)
-        return Response(serielizer.data)
+        return Response({'doces': serielizer.data})
 
 class ExibirReceitasSalgados(APIView):
 
@@ -73,7 +79,7 @@ class ExibirReceitasSalgados(APIView):
     def get(self, request, format=None):
         salgados = Receita.objects.filter(categoria="s")
         serializer = ReceitaSerializer(salgados, many=True)
-        return Response(serializer.data)
+        return Response({'salgados': serielizer.data})
 
 class ExibirReceitasBebidas(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -82,4 +88,4 @@ class ExibirReceitasBebidas(APIView):
     def get(self, request, format=None):
         bebidas = Receita.objects.filter(categoria="b")
         serializer = ReceitaSerializer(bebidas, many=True)
-        return Response(serializer.data)
+        return Response({'bebidas': serielizer.data})
