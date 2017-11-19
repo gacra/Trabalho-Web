@@ -71,7 +71,7 @@ class Imagem(models.Model):
     imagem = models.ImageField(upload_to="static/images/")
 
     def __str__(self):
-        return (self.fk_receita_imagem)
+        return str(self.fk_receita_imagem)
 
     def __unicode__(self):
         return self.fk_receita_imagem
