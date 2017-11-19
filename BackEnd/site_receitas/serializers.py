@@ -20,7 +20,7 @@ class ImagemSerializer(serializers.ModelSerializer):
 
 class ReceitaSerializer(serializers.ModelSerializer):
 
-    imagens =  serializers.PrimaryKeyRelatedField(many=True, queryset=Imagem.objects.all())
+    imagens = ImagemSerializer(many=True)
     ingredientes = serializers.PrimaryKeyRelatedField(many=True, queryset=Ingrediente.objects.all())
 
     class Meta:
