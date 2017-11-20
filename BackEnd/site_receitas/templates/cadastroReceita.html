@@ -97,7 +97,7 @@ window.onload=function(){
     <div class="row">
       <h3>Ingredientes</h3>
 
-      <!-- ko foreach: ingrediente -->
+      <!-- ko foreach: ingredientes -->
       <div class="div_ingrediente">
         <div class="input-field col s12 m5 l7">
           <label for="nomeIngrediente">Nome: </label>
@@ -112,10 +112,16 @@ window.onload=function(){
           <input type="text" name="unidadeIngrediente1" id="unidadeIngrediente" required maxlength="50" data-bind="value: unidadeIngrediente">
         </div>
       </div>
-      <!-- ko foreach: plans -->
+      <!-- /ko -->
 
-      <div id="botao" class="input-field col s12 m12 l12">
-          <button data-bind="click: novoIngrediente" class="btn waves-effect waves-light" type="button" name="more">Novo ingrediente</button>
+      <div class="input-field col s12 m6 l6">
+        <button data-bind="click: novoIngrediente" class="btn waves-effect waves-light" type="button" name="more">Novo ingrediente</button>
+      </div>
+
+      <div class="input-field col s12 m6 l6">
+        <button data-bind="click: removeIngrediente" class="btn waves-effect waves-light" type="button" name="more">Remove ingrediente</button>
+      </div>
+
     </div>
 
     <div class="row">

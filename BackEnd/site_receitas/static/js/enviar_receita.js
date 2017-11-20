@@ -1,3 +1,27 @@
+ingredientesViewModel = new IngredientesViewModel()
+
+function Ingrediente() {
+	var self = this;
+	self.nomeIngrediente = ko.observable();
+  self.qtdeIngrediente = ko.observable();
+  self.unidadeIngrediente = ko.observable();
+}
+
+function IngredientesViewModel() {
+  var self = this;
+  self.ingredientes = ko.observableArray([new Ingrediente()]);
+  
+  self.novoIngrediente = function () {
+  	self.ingredientes.push(new Ingrediente());
+  }
+
+  self.removeIngrediente = function () {
+  	if(self.ingredientes().length > 1){
+  		self.ingredientes.pop();
+  	}
+  }
+}
+
 function postREST() {
 	var autor = $('#autor').val();
 	var nome = $('#nome').val();
@@ -20,18 +44,29 @@ function postREST() {
 	  'metodo_cozimento': cozimento,
 	  'rating': 0,
 	  'num_votos' : 0,
-	  'ingredientes': [{'nome_ingrediente': 'Banana', 'quantidade': 2, 'unidade': 'unidades'},{'nome_ingrediente': 'Banana2', 'quantidade': 22, 'unidade': 'unidades2'}],
+	  'ingredientes': [],
 	  'imagens': [],
 	};
+
+	var innerArray = ingredientesViewModel.ingredientes();
+  $(innerArray).each(function(index, el) {
+  	body['ingredientes'].push({
+  		'nome_ingrediente': el.nomeIngrediente(),
+  		'quantidade': el.qtdeIngrediente(),
+  		'unidade': el.unidadeIngrediente()
+  	});
+  });
+
 	console.log(JSON.stringify(body));
 
-	var teste =     {
+	var teste = {
       'json_data': JSON.stringify(body),
       "type": 'clone',
       "csrfmiddlewaretoken": Cookies.get('csrftoken')
     }
 
-	$.post('http://127.0.0.1:8000/home/cadastroReceita/?format=json', teste, function(data, textStatus, xhr) {
+	$.post('http://127.0.0.1:8000/home/cadastroReceitaJson/?format=json', teste, function(data, textStatus, xhr) {
+		console.log(data)
 	}).fail(function (data, textStatus, xhr) {
 		console.log(data)
 	});
@@ -49,5 +84,6 @@ function sendForm(){
 }
 
 $(document).ready(function() {
+	ko.applyBindings(ingredientesViewModel, $('#main')[0]);
 	sendForm();
 });

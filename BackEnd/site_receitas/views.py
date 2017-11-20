@@ -55,15 +55,13 @@ def cadastroRender(request):
 
 class CadastroReceita(APIView):
 
-    # renderer_classes = (TemplateHTMLRenderer,)
-    # template_name = 'index.html'
-
     def get(self, request, format=None):
         return Response()
 
     def post(self, request, format=None):
         #print(json.loads(request.data['json_data']))
         serializer = ReceitaSerializer(data=json.loads(request.data['json_data']))
+        #serializer = ReceitaSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

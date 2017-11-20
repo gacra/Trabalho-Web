@@ -25,7 +25,8 @@ class ReceitaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Receita
-        fields = ('dataCadastro',
+        fields = ('id',
+                  'dataCadastro',
                   'autor',
                   'nome_receita',
                   'descricao',
