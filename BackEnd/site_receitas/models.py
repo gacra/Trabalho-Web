@@ -3,10 +3,6 @@ from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from .managers import UserManager
 
-
-
-# Create your models here.
-
 class Usuario(AbstractBaseUser, PermissionsMixin):
     nome = models.CharField(max_length=100)
     nascimento = models.DateField(null=True, blank=True)
@@ -28,7 +24,6 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     def get_short_name(self):
         return self.nome
-
 
 class Receita(models.Model):
 

@@ -51,8 +51,7 @@ class CadastroUsuario(APIView):
 
 class CadastroReceita(APIView):
 
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'cadastroReceita.html'
+
 
     def get(self, request, format=None):
         return Response()

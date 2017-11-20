@@ -3,7 +3,9 @@
 {% block content %}
 {% load static %}
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/enviar_receita.js' %}"></script>
 
 <script type="text/javascript">
 window.onload=function(){
@@ -16,7 +18,7 @@ window.onload=function(){
 
 <div class="row">
   <h2>Adicionar receita</h2>
-  <form id="cadastroReceita" action="{% url 'Cadastrar Usuario' %}" method="post" class="col s12">
+  <form id="cadastroReceita" action="#" method="post" class="col s12">
     {% csrf_token %}
 
     <!--Autor-->
@@ -39,7 +41,7 @@ window.onload=function(){
     <div class="row">
       <div class="input-field col s11 m8">
         <label for="descricao">Descrição da receita: </label>
-        <textarea class="materialize-textarea" rows="5" cols="40" maxlength="300" required></textarea>
+        <textarea class="materialize-textarea" id="descricao" rows="5" cols="40" maxlength="300" required></textarea>
       </div>
     </div>
 
@@ -61,25 +63,11 @@ window.onload=function(){
       </div>
     </div>
 
-    <!--Imagens
-    <div class="row">
-      <div class="file-field input-field col s11 m8">
-        <div class="btn">
-          <span>Imagens</span>
-          <input type="file" name="imagens" id="imagens" multiple required>
-        </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text" placeholder="Insira imagens da receita">
-        </div>
-      </div>
-    </div>
-  -->
-
-    <!--Categorias-->
+    <!--Categoria-->
     <div class="row">
       <div class="input-field col s11 m8">
-        <select name="categorias" id="categorias" multiple>
-          <option value="" disabled selected>-- Escolha as categorias --</option>
+        <select name="categoria" id="categoria">
+          <option value="" disabled selected>-- Escolha a categoria --</option>
           <option value="d">Doce</option>
           <option value="s">Salgado</option>
           <option value="b">Bebida</option>
