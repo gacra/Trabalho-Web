@@ -42,7 +42,7 @@ class ReceitaSerializer(serializers.ModelSerializer):
                   'num_votos')
 
     def create(self, validated_data):
-        print(validated_data['ingredientes'])
+
         receita = Receita.objects.create(
             autor = validated_data['autor'],
             nome_receita = validated_data['nome_receita'],
@@ -57,6 +57,15 @@ class ReceitaSerializer(serializers.ModelSerializer):
             num_votos =validated_data['num_votos']
         )
 
+        ingredientes_json = validated_data['ingredientes']
 
+        for ingrediente_json in ingredientes_json:
+
+            ingrediente = Ingrediente.objects.create(
+                nome_ingrediente = ingrediente_json['nome_ingrediente'],
+                quantidade = ingrediente_json['quantidade'],
+                unidade = ingrediente_json['unidade'],
+                fk_receita_ingrediente = receita
+            )
 
         return receita

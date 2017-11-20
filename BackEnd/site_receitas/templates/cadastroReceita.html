@@ -4,6 +4,7 @@
 {% load static %}
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.4.2.js"></script>
 <script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/enviar_receita.js' %}"></script>
 
@@ -58,7 +59,7 @@ window.onload=function(){
         </div>
       </div>
 
-      <div id="botao" class="input-field col s12 m12 l12">
+      <div id="botaoImages" class="input-field col s12 m12 l12">
           <button class="btn waves-effect waves-light" type="button" name="more">Nova imagem</button>
       </div>
     </div>
@@ -95,21 +96,26 @@ window.onload=function(){
     <!--Ingredientes-->
     <div class="row">
       <h3>Ingredientes</h3>
-      <div class="input-field col s12 m5 l7">
-        <label for="nomeIngrediente1">Nome: </label>
-        <input type="text" name="nomeIngrediente1" id="nomeIngrediente1" required maxlength="50">
+
+      <!-- ko foreach: ingrediente -->
+      <div class="div_ingrediente">
+        <div class="input-field col s12 m5 l7">
+          <label for="nomeIngrediente">Nome: </label>
+          <input type="text" name="nomeIngrediente1" id="nomeIngrediente" required maxlength="50" data-bind="value: nomeIngrediente">
+        </div>
+        <div class="input-field col s5 m3 l2">
+          <label for="qtdeIngrediente">Quantidade: </label>
+          <input type="number" min="0.1" step="0.1" name="qtdeIngrediente" id="qtdeIngrediente" required data-bind="value: qtdeIngrediente">
+        </div>
+        <div class="input-field col s7 m4 l3">
+          <label for="unidadeIngrediente">Unidade: </label>
+          <input type="text" name="unidadeIngrediente1" id="unidadeIngrediente" required maxlength="50" data-bind="value: unidadeIngrediente">
+        </div>
       </div>
-      <div class="input-field col s5 m3 l2">
-        <label for="qtdeIngrediente1">Quantidade: </label>
-        <input type="number" min="0.1" step="0.1" name="qtdeIngrediente1" id="qtdeIngrediente1" required>
-      </div>
-      <div class="input-field col s7 m4 l3">
-        <label for="unidadeIngrediente1">Unidade: </label>
-        <input type="text" name="unidadeIngrediente1" id="unidadeIngrediente1" required maxlength="50">
-      </div>
+      <!-- ko foreach: plans -->
 
       <div id="botao" class="input-field col s12 m12 l12">
-          <button class="btn waves-effect waves-light" type="button" name="more">Novo ingrediente</button>
+          <button data-bind="click: novoIngrediente" class="btn waves-effect waves-light" type="button" name="more">Novo ingrediente</button>
     </div>
 
     <div class="row">

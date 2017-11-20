@@ -20,28 +20,21 @@ function postREST() {
 	  'metodo_cozimento': cozimento,
 	  'rating': 0,
 	  'num_votos' : 0,
-	  "ingredientes": [{"nome_ingrediente": "Banana", "quantidade": 2, "unidade": "unidades"}],
+	  'ingredientes': [{'nome_ingrediente': 'Banana', 'quantidade': 2, 'unidade': 'unidades'},{'nome_ingrediente': 'Banana2', 'quantidade': 22, 'unidade': 'unidades2'}],
 	  'imagens': [],
-	  'csrfmiddlewaretoken': Cookies.get('csrftoken')
 	};
 	console.log(JSON.stringify(body));
-	
-	$.ajax({  
-	  url: "http://127.0.0.1:8000/home/cadastroReceita/?format=json",  
-	  type: "POST",    
-	  data: JSON.stringify(body),  
-	  success: function(){              
-	    alert("success :-)");  
-	  },  
-	  error: function(data){  
-	    console.log(data);  
-	  }  
-	});  
-	/*
-	$.post('http://127.0.0.1:8000/home/cadastroReceita/', body, function(data, textStatus, xhr) {
+
+	var teste =     {
+      'json_data': JSON.stringify(body),
+      "type": 'clone',
+      "csrfmiddlewaretoken": Cookies.get('csrftoken')
+    }
+
+	$.post('http://127.0.0.1:8000/home/cadastroReceita/?format=json', teste, function(data, textStatus, xhr) {
 	}).fail(function (data, textStatus, xhr) {
 		console.log(data)
-	});*/
+	});
 }
 
 function sendForm(){
