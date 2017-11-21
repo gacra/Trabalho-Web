@@ -7,8 +7,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from rest_framework.renderers import TemplateHTMLRenderer
-
+from rest_framework.renderers import TemplateHTMLRenderer, BaseRenderer
+from django.http import Http404
 
 from .models import *
 from .serializers import *
@@ -19,17 +19,20 @@ class Home(APIView):
     renderer_classes = (TemplateHTMLRenderer,)
     template_name = 'index.html'
 
-    #def get(self, request, format=None):
-    #    receitas = Receita.objects.all().order_by('dataCadastro')
-    #    serializer = ReceitaSerializer(receitas, many=True)
-    #    return Response(serializer.data)
-
     def get(self, request, format=None):
-        receitas = Receita.objects.all().order_by('dataCadastro', '-categoria')
-        serializer = ReceitaSerializer(receitas, many=True)
-        return Response({'receitas': serializer.data})
+        doces = Receita.objects.filter(categoria="d")[:3]
+        serielizer_doces = ReceitaSerializer(doces, many=True)
+        salgados = Receita.objects.filter(categoria="s")[:3]
+        serielizer_salgados = ReceitaSerializer(salgados, many=True)
+        bebidas = Receita.objects.filter(categoria="b")[:3]
+        serielizer_bebidas = ReceitaSerializer(bebidas, many=True)
 
-
+        context = {
+            'doces': serielizer_doces.data,
+            'salgados': serielizer_salgados.data,
+            'bebidas': serielizer_bebidas.data
+        }
+        return Response(context)
 
 class CadastroUsuario(APIView):
 
@@ -79,7 +82,7 @@ class ExibirReceitasSalgados(APIView):
     def get(self, request, format=None):
         salgados = Receita.objects.filter(categoria="s")
         serializer = ReceitaSerializer(salgados, many=True)
-        return Response({'salgados': serielizer.data})
+        return Response({'salgados': serializer.data})
 
 class ExibirReceitasBebidas(APIView):
     renderer_classes = [TemplateHTMLRenderer]
@@ -88,4 +91,12 @@ class ExibirReceitasBebidas(APIView):
     def get(self, request, format=None):
         bebidas = Receita.objects.filter(categoria="b")
         serializer = ReceitaSerializer(bebidas, many=True)
-        return Response({'bebidas': serielizer.data})
+        return Response({'bebidas': serializer.data})
+
+def detalheReceitaXML(request, id):
+    try:
+        receita = Receita.objects.get(id=id)
+    except Receita.DoesNotExist:
+        raise Http404
+    serializer = ReceitaSerializer(receita)
+return render(request, 'receita.xml', {'receita': serializer.data}, content_type="application/xhtml+xml")
