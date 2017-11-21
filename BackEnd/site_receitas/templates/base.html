@@ -29,8 +29,17 @@
         </div>
 
         <div class="links_cadastro col s6 m6 l6">
-          <!--Colocar nos href os caminhos para as respectivas páginas após incluir os urls.-->
-          <p style="text-align: right;"><a href="" class="white-text">Entrar</a><br/><a href="{% url 'site_receitas:Cadastrar Usuario' %}" class="white-text">Inscreva-se</a></p>
+          <p style="text-align: right;" class="white-text">
+          {% if user.is_authenticated %}
+          Bem vindo, {{ user.nome }}
+          <br/>
+          <a href="{% url 'site_receitas:sair' %}" class="white-text">Sair</a>
+          {% else %}
+          <a href="{% url 'site_receitas:entrar' %}" class="white-text">Entrar</a>
+          <br/>
+          <a href="{% url 'site_receitas:Cadastrar Usuario' %}" class="white-text">Inscreva-se</a>
+          {% endif %}
+          </p>
         </div>
 
         <nav class="nav-wrapper col s3 m3 l3 card-panel red darken-4 valign-wrapper">
@@ -51,7 +60,7 @@
           <ul id="nav-mobile" class="left hide-on-med-and-down">
             <!--Colocar nos href os caminhos para as respectivas páginas após incluir os urls.-->
             <li><a href="{% url 'site_receitas:home' %}">Home</a></li>
-            <li><a href="">Receitas</a></li>
+            <li><a href="{% url 'site_receitas:home' %}">Receitas</a></li>
             <li><a href="{% url 'site_receitas:Salgados' %}">Salgados</a></li>
             <li><a href="{% url 'site_receitas:Doces' %}">Doces</a></li>
             <li><a href="{% url 'site_receitas:Bebidas' %}">Bebidas</a></li>

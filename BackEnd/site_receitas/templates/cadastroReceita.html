@@ -19,6 +19,7 @@ window.onload=function(){
 
 <div class="row">
   <h2>Adicionar receita</h2>
+  {% if user.is_authenticated %}
   <form id="cadastroReceita" action="#" method="post" class="col s12">
     {% csrf_token %}
 
@@ -26,7 +27,7 @@ window.onload=function(){
     <div class="row">
       <div class="input-field col s11 m8">
         <label for="autor">Autor: </label>
-        <input type="text" name="autor" id="autor" maxlength="100" value="Nome do usuário logado" disabled size="30">
+        <input type="text" name="autor" id="autor" maxlength="100" value="{{user.nome}}" disabled size="30">
       </div>
     </div>
 
@@ -57,10 +58,6 @@ window.onload=function(){
         <div class="file-path-wrapper">
           <input class="file-path validate" type="text" placeholder="Insira imagens da receita">
         </div>
-      </div>
-
-      <div class="input-field col s12 m12 l12">
-          <button class="btn waves-effect waves-light" id="botaoImages" type="button" name="more">Nova imagem</button>
       </div>
     </div>
 
@@ -156,6 +153,9 @@ window.onload=function(){
       <i class="material-icons right">restaurant</i>
     </button>
   </form>
+  {% else %}
+  <p class="red-text">É necessário entrar para cadatrar uma receita</p>
+  {% endif %}
 </div>
 
 

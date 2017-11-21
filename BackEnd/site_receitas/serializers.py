@@ -28,7 +28,7 @@ class ReceitaSerializer(serializers.ModelSerializer):
 
     imagens = ImagemSerializer(many=True)
     ingredientes = IngredienteSerializer(many=True)
-    comentarios = ComentarioSerializer(many=True)
+    comentarios = ComentarioSerializer(many=True, read_only=True)
 
     class Meta:
         model = Receita

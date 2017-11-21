@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+{% load static %}
+<head>
+	<meta charset="UTF-8"/>
+	<title>{{ receita.nome_receita }}</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/simples.js' %}"></script>
+</head>
+<body>
+	
+  <fieldset>
+
+	<section>
+	     <br/>
+		<h1>{{ receita.nome_receita }}</h1><br/>
+		<p>Autor(a): {{ receita.autor }}, {{ receita.dataCadastro }}</p>
+		<p>{{ receita.descricao }}</p>
+		<img  src="/{{ receita.imagens.0.imagem }}" title="{{ receita.nome_receita }}" alt="{{ receita.nome_receita }}" />
+		 <p>Quantidade: {{receita.procoes}} porções</p>
+
+		<h2>Ingredientes</h2>
+
+		 <ul>
+			{% for ingrediente in receita.ingredientes %}
+			<li>{{ ingrediente.quantidade}} {{ ingrediente.unidade}} de {{ ingrediente.nome_ingrediente}}</li>
+			{% endfor %}
+		</ul>
+
+
+		<h2>Modo de Preparar</h2>
+
+		<p>{{receita.instrucoes_preparo}}</p>
+
+     </section>
+ </fieldset>
+<button class="btn info" id="id">Imprimir</button>
+	
+</body>
+
+</html>
