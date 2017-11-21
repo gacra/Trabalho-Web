@@ -7,6 +7,15 @@ class UsuarioSerializer(serializers.ModelSerializer):
         model = Usuario
         fields = '__all__'
 
+    def create(self, validated_data):
+        usuario = Usuario.objects.create_user(
+            password=validated_data['password'],
+            nome=validated_data['nome'],
+            usuario=validated_data['usuario']
+        )
+
+        return usuario
+
 class IngredienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ingrediente
@@ -83,6 +92,6 @@ class ReceitaSerializer(serializers.ModelSerializer):
         serializer = ImagemSerializer(data=imagem_json)
         if serializer.is_valid():
             serializer.save()
-        print(serializer.errors)
+        #print(serializer.errors)
 
         return receita

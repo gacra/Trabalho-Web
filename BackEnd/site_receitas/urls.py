@@ -3,7 +3,8 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.Home.as_view(), name='home'),
-    url(r'^cadastroUsuario/', views.CadastroUsuario.as_view(), name="Cadastrar Usuario"),
+    url(r'^cadastroUsuarioJson/', views.CadastroUsuario.as_view()),
+    url(r'^cadastroUsuario/', views.cadastroUsuarioRender, name="Cadastrar Usuario"),
     url(r'^cadastroReceitaJson/', views.CadastroReceita.as_view(), name="Cadastrar Receita"),
     url(r'^cadastroReceita/', views.cadastroRender, name="TelaCadastrarReceita"),
     url(r'^doces/', views.ExibirReceitasDoces.as_view(), name="Doces"),

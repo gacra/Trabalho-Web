@@ -35,10 +35,13 @@ class Home(APIView):
         }
         return Response(context)
 
+def cadastroUsuarioRender(request):
+    return render(request, 'cadastroUsuario.html')
+
 class CadastroUsuario(APIView):
 
-    renderer_classes = [TemplateHTMLRenderer,]
-    template_name = 'cadastroUsuario.html'
+    # renderer_classes = [TemplateHTMLRenderer,]
+    # template_name = 'cadastroUsuario.html'
 
     def get(self, request, format=None):
         return Response({})
@@ -80,7 +83,7 @@ class ExibirReceitasDoces(APIView):
     def get(self, request, format=None):
         doces = Receita.objects.filter(categoria="d").order_by('-dataCadastro')
         serielizer = ReceitaSerializer(doces, many=True)
-        print(serielizer.data)
+        #print(serielizer.data)
         return Response({'doces': serielizer.data})
 
 class ExibirReceitasSalgados(APIView):

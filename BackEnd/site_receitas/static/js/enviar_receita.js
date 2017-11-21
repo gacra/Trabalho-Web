@@ -77,7 +77,7 @@ function postREST() {
 			$.post('http://127.0.0.1:8000/home/cadastroReceitaJson/?format=json', teste, function(data, textStatus, xhr) {
 				console.log(data)
 				console.log("http://127.0.0.1:8000/home/xml/"+data['id']);
-				window.location.replace("http://127.0.0.1:8000/home/xml/"+data['id']);
+				window.location.replace("http://127.0.0.1:8000/home/"+data['id']);
 			}).fail(function (data, textStatus, xhr) {
 				console.log(data)
 			});
