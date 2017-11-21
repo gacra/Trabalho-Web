@@ -82,3 +82,16 @@ class Ingrediente(models.Model):
 
     def __unicode__(self):
         return ('%d %s: %s' % (self.quantidade, self.unidade, self.nome_ingrediente))
+
+class Comentario(models.Model):
+    fk_usuario_comentario = models.ForeignKey('Usuario', related_name="fk_usuario", on_delete=models.CASCADE, default=0)
+    fk_receita_comentario = models.ForeignKey('Receita', related_name="comentarios", on_delete=models.CASCADE, default=0)
+    texto_comentario = models.TextField(max_length=1000, verbose_name="Comentario")
+
+    def __str__(self):
+        usuario = Usuario.objects.get(pk=sel.fk_usuario_comentario)
+        return(usuario.nome)
+
+    def __unicode__(self):
+        usuario = Usuario.objects.get(pk=sel.fk_usuario_comentario)
+        return(usuario.nome)

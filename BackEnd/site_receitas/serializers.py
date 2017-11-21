@@ -19,10 +19,16 @@ class ImagemSerializer(ModelSerializer64):
         #fields = ('imagem',)
         fields = '__all__'
 
+class ComentarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comentario
+        fields = '__all__'
+
 class ReceitaSerializer(serializers.ModelSerializer):
 
     imagens = ImagemSerializer(many=True)
     ingredientes = IngredienteSerializer(many=True)
+    comentarios = ComentarioSerializer(many=True)
 
     class Meta:
         model = Receita
@@ -41,7 +47,8 @@ class ReceitaSerializer(serializers.ModelSerializer):
                   'instrucoes_preparo',
                   'metodo_cozimento',
                   'rating',
-                  'num_votos')
+                  'num_votos',
+                  'comentarios',)
 
     def create(self, validated_data):
 

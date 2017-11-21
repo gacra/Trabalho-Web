@@ -17,7 +17,7 @@ from .serializers import *
 # Create your views here.
 class Home(APIView):
 
-    renderer_classes = (TemplateHTMLRenderer,)
+    renderer_classes = [TemplateHTMLRenderer,]
     template_name = 'index.html'
 
     def get(self, request, format=None):
@@ -37,7 +37,7 @@ class Home(APIView):
 
 class CadastroUsuario(APIView):
 
-    renderer_classes = (TemplateHTMLRenderer)
+    renderer_classes = [TemplateHTMLRenderer,]
     template_name = 'cadastroUsuario.html'
 
     def get(self, request, format=None):
