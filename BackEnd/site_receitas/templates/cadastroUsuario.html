@@ -26,7 +26,7 @@ window.onload=function(){
   <h2>Cadastro</h2>
   <p class="red-text">Necessário preencher todos os campos.</p>
 
-  <form id="cadastroUsuario" action="{% url 'Cadastrar Usuario' %}" method="post" class="col s12">
+  <form id="cadastroUsuario" action="{% url 'site_receitas:Cadastrar Usuario' %}" method="post" class="col s12">
     {% csrf_token %}
 
     <!--Nome completo-->

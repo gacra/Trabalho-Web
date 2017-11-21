@@ -15,3 +15,8 @@ class ImagemForm(ModelForm):
     class Meta:
         model = Imagem
         fields = ('imagem',)
+
+class ComentarioForm(ModelForm):
+    class Meta:
+        model = Comentario
+        fields = '__all__'
