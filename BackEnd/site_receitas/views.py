@@ -75,6 +75,7 @@ class ExibirReceitasDoces(APIView):
     def get(self, request, format=None):
         doces = Receita.objects.filter(categoria="d")
         serielizer = ReceitaSerializer(doces, many=True)
+        print(serielizer.data)
         return Response({'doces': serielizer.data})
 
 class ExibirReceitasSalgados(APIView):

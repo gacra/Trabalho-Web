@@ -62,7 +62,7 @@ class Receita(models.Model):
         return self.nome_receita
 
 class Imagem(models.Model):
-    fk_receita_imagem = models.ForeignKey('Receita', related_name='imagens', on_delete=models.CASCADE)
+    fk_receita_imagem = models.ForeignKey('Receita', related_name='imagens', on_delete=models.CASCADE, default=1)
     imagem = models.ImageField(upload_to="static/images/")
 
     def __str__(self):
