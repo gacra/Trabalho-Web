@@ -89,9 +89,11 @@ class Comentario(models.Model):
     texto_comentario = models.TextField(max_length=1000, verbose_name="Comentario")
 
     def __str__(self):
-        usuario = Usuario.objects.get(pk=sel.fk_usuario_comentario)
-        return(usuario.nome)
+        return(self.fk_usuario_comentario.nome + " | " + self.fk_receita_comentario.nome_receita)
 
     def __unicode__(self):
-        usuario = Usuario.objects.get(pk=sel.fk_usuario_comentario)
-        return(usuario.nome)
+        return(self.fk_usuario_comentario.nome)
+
+    @property
+    def nome_usuario(self):
+        return self.fk_usuario_comentario.nome

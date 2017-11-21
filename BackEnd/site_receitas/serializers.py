@@ -22,7 +22,8 @@ class ImagemSerializer(ModelSerializer64):
 class ComentarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comentario
-        fields = '__all__'
+        fields = ('fk_usuario_comentario', 'fk_receita_comentario', 'texto_comentario', 'nome_usuario')
+        read_only_fields = ('nome_usuario',)
 
 class ReceitaSerializer(serializers.ModelSerializer):
 

@@ -1,13 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load static %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/enviar_comentario.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
 <div class="row">
 <div class="col s12 m12 l10">
 <article>
-  <h1>{{ receita.nome_receita }}</h1><br>
-    <p>Autor(a): {{ receita.autor }}, {{ receita.dataCadastro }}</p>
+   <h1>
+      <div itemprop="receitas" itemscope itemtype="http://schema.org/Receitas">
+          <span itemprop="name">{{ receita.nome_receita }}</span>
+      </div>
+  </h1><br>
+    <p>
+        <div itemprop="autor" itemscope itemtype="http://schema.org/Person">
+        Autor(a):<span itemprop="Autor(a):">{{ receita.autor }}</span>, <span itemprop="Date">{{ receita.dataCadastro }}</span>
+        </div>
+    </p>
     <p>{{ receita.descricao }}</p>
-    <img  src="/{{ receita.imagens.0.imagem }}" title="Imagem da receita: {{ receita.nome_receita }}" alt="Imagem da receita: {{ receita.nome_receita }}" />
+    <div itemscope itemtype="http://Schema.org/Receitas">
+      <img  src="/{{ receita.imagens.0.imagem }}" title="Imagem da receita: {{ receita.nome_receita }}" alt="Imagem da receita: {{ receita.nome_receita }}" style="max-width: 100%;"/>
+    </div>
 
   <h2>Ingredientes</h2>
     <ul>
@@ -28,7 +45,57 @@
     <div class="input-field col s12 m12 l6">
       <a class="btn waves-effect waves-light" href="{% url 'site_receitas:simples_xml' 'xml' receita.id %}" style="min-width: 210px">Versão XML</a>
     </div>
+
+    <div class="input-field col s12 m12 l6">
+      <p><b>Nota: </b>{{ receita.rating }} ({{ receita.num_votos }} avaliações)</p>
+
+    </div>
 </article>
+<article>
+  <div class="col s12 m12 l12">
+    <h3>Comentários:</h3>
+    {% if user.is_authenticated %}
+    <form id="cadastroComentario" action="#" method="post" class="col s12">
+      {% csrf_token %}
+      <input type="hidden" id="fk_usuario_comentario" name="fk_usuario_comentario" value="{{ user.id }}">
+      <input type="hidden" id ="fk_receita_comentario" name="fk_receita_comentario" value="{{ receita.id }}">
+      <!--Autor-->
+      <div class="row">
+        <div class="input-field col s11 m12">
+          <label for="autor">Autor: </label>
+          <input type="text" name="autor" id="autor" maxlength="100" value="{{user.nome}}" disabled size="30">
+        </div>
+      </div>
+
+      <!--Comentário-->
+      <div class="row">
+        <div class="input-field col s11 m12">
+          <label for="nome">Comentário: </label>
+          <textarea class="materialize-textarea" id="texto_comentario" rows="5" cols="40" maxlength="300" required></textarea>
+        </div>
+      </div>
+      <div id="rateYo"></div>
+      <br/>
+      <button class="btn waves-effect waves-light" type="submit" name="action">Comentar
+        <i class="material-icons right">comment</i>
+      </button>
+    </form>
+    {% else %}
+    <p class="red-text">É necessário entrar para comentar!!</p>
+    {% endif %}
+    {% for comentario in receita.comentarios reversed %}
+    <div class="input-field col s11 m12">
+      <div class="card" style="background-color: rgba(255,255,255,0.5);">
+        <div class="card-content">
+          <span class="card-title">{{ comentario.nome_usuario }}:</span>
+          <p>{{ comentario.texto_comentario }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</article>
+</div>
 </div>
 
 {% endblock content %}

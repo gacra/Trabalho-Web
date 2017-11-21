@@ -16,7 +16,7 @@
 		<h1>{{ receita.nome_receita }}</h1><br/>
 		<p>Autor(a): {{ receita.autor }}, {{ receita.dataCadastro }}</p>
 		<p>{{ receita.descricao }}</p>
-		<img  src="/{{ receita.imagens.0.imagem }}" title="{{ receita.nome_receita }}" alt="{{ receita.nome_receita }}" />
+		<img  src="/{{ receita.imagens.0.imagem }}" title="{{ receita.nome_receita }}" alt="{{ receita.nome_receita }}" width="300"/>
 		 <p>Quantidade: {{receita.procoes}} porções</p>
 
 		<h2>Ingredientes</h2>

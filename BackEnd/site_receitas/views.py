@@ -37,10 +37,11 @@ class Home(APIView):
 
 class CadastroUsuario(APIView):
 
+    renderer_classes = [TemplateHTMLRenderer,]
+    template_name = 'cadastroUsuario.html'
+
     def get(self, request, format=None):
-        usuarios = Usuario.objects.all()
-        serializer = UsuarioSerializer(usuarios, many=True)
-        return Response(serializer.data)
+        return Response({})
 
     def post(self, request, format=None):
         print(request.data)
@@ -132,3 +133,22 @@ def entrar(request):
 def sair(request):
     logout(request)
     return HttpResponseRedirect(reverse('site_receitas:home'))
+
+class CadastroComentario(APIView):
+
+    def post(self, request, format=None):
+        serializer = ComentarioSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class Avaliar(APIView):
+
+    def post(self, request, format=None):
+        receita = Receita.objects.get(id = request.data['receita'])
+        receita.rating = (receita.rating * receita.num_votos + int(request.data['nota'])) / (receita.num_votos + 1)
+        receita.num_votos += 1
+        receita.save()
+        print("Deu certo!!!")
+        return Response({}, status=status.HTTP_201_CREATED)

@@ -10,7 +10,7 @@
     <div class="col s12 m6 l4">
       <div class="card medium">
         <div class="card-image">
-          <a href="page/receitabolodecenoura.html"><img src="/{{ salgado.imagens.0.imagem }}" alt="Bolo de Cenoura"/></a>
+          <a href="{% url 'site_receitas:detalheReceita' salgado.id %}"><img src="/{{ salgado.imagens.0.imagem }}" alt="Imagem da receita: {{ salgado.nome_receita }}"/></a>
           <span class="card-title" style="text-transform: capitalize;">{{ salgado.nome_receita }}</span>
         </div>
 
@@ -21,7 +21,7 @@
         </div>
 
         <div class="card-action">
-          <a href="page/receitabolodecenoura.html">Receita</a>
+          <a href="{% url 'site_receitas:detalheReceita' salgado.id %}">Receita</a>
         </div>
       </div>
     </div>

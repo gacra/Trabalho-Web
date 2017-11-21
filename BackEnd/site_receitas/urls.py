@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^(?P<tipo>xml|simples)/(?P<id>\d+)/$', views.detalheReceita, name="simples_xml"),
     url(r'^entrar/$', views.entrar, name='entrar'),
     url(r'^sair/$', views.sair, name='sair'),
+    url(r'^cadastroComentario/', views.CadastroComentario.as_view(), name="Cadastrar Comentario"),
+    url(r'^avaliar/', views.Avaliar.as_view(), name="Avaliar"),
 ]

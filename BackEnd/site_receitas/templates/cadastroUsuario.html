@@ -23,7 +23,7 @@ window.onload=function(){
 
 <div class="row">
   <h2>Cadastro</h2>
-  <p class="red-text">Necessário preencher todos os campos.</p>
+  <p class="">Necessário preencher todos os campos.</p>
 
   <form id="cadastroUsuario" action="{% url 'site_receitas:Cadastrar Usuario' %}" method="post" class="col s12">
     {% csrf_token %}
@@ -38,7 +38,7 @@ window.onload=function(){
 
     <!--Data de nascimento-->
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col s12 m8">
         <label class="active" for="nascimento">Data de nascimento: </label>
           <input type="date" name="nasc" id="nascimento">
       </div>
@@ -91,7 +91,7 @@ window.onload=function(){
 
     <!--Telefone-->
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col s12 m8">
         <input class="validate" type="tel" name="tel" id="telefone" placeholder="(XX)XXXX-XXXX" pattern="[\(][0-9]{2}[\)][ ]?[0-9]{4}-[0-9]{4}" title="Telefone no formato (XX) XXXX-XXXX" size="13">
           <label data-error="Formato (XX) XXXX-XXXX" for="telefone">Telefone: </label>
       </div>
