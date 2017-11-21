@@ -57,19 +57,29 @@ function postREST() {
   	});
   });
 
-	console.log(JSON.stringify(body));
+	//console.log(JSON.stringify(body));
 
-	var teste = {
+	var imagens = document.getElementById('imagens').files[0];
+	var reader = new FileReader();
+   reader.readAsDataURL(imagens);
+   reader.onload = function () {
+     //console.log(reader.result);
+     //var base = reader.result.substring(reader.result.indexOf(",") + 1);
+     body['imagens'] = [{'imagem':reader.result}];
+     	
+     //console.log(JSON.stringify(body));
+     	var teste = {
       'json_data': JSON.stringify(body),
       "type": 'clone',
       "csrfmiddlewaretoken": Cookies.get('csrftoken')
-    }
+    	}
 
-	$.post('http://127.0.0.1:8000/home/cadastroReceitaJson/?format=json', teste, function(data, textStatus, xhr) {
-		console.log(data)
-	}).fail(function (data, textStatus, xhr) {
-		console.log(data)
-	});
+			$.post('http://127.0.0.1:8000/home/cadastroReceitaJson/?format=json', teste, function(data, textStatus, xhr) {
+				console.log(data)
+			}).fail(function (data, textStatus, xhr) {
+				console.log(data)
+			});
+  };
 }
 
 function sendForm(){

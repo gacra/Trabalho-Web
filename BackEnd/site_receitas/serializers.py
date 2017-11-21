@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from drf_base64.serializers import ModelSerializer as ModelSerializer64
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,7 +13,7 @@ class IngredienteSerializer(serializers.ModelSerializer):
         fields = '__all__'
         #fields = ('nome_ingrediente', 'quantidade', 'unidade' )
 
-class ImagemSerializer(serializers.ModelSerializer):
+class ImagemSerializer(ModelSerializer64):
     class Meta:
         model = Imagem
         #fields = ('imagem',)
@@ -68,5 +69,12 @@ class ReceitaSerializer(serializers.ModelSerializer):
                 unidade = ingrediente_json['unidade'],
                 fk_receita_ingrediente = receita
             )
+
+        imagem_json = {'imagem':validated_data['imagens'][0]['imagem'], 'fk_receita_imagem': receita.id}
+
+        serializer = ImagemSerializer(data=imagem_json)
+        if serializer.is_valid():
+            serializer.save()
+        print(serializer.errors)
 
         return receita
