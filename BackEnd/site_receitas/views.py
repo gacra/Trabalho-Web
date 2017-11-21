@@ -9,6 +9,7 @@ from rest_framework import status
 from django.http import Http404
 from rest_framework.renderers import TemplateHTMLRenderer, BaseRenderer
 from django.http import Http404
+import json
 
 from .models import *
 from .serializers import *
@@ -49,16 +50,18 @@ class CadastroUsuario(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CadastroReceita(APIView):
+def cadastroRender(request):
+    return render(request, 'cadastroReceita.html')
 
-    renderer_classes = [TemplateHTMLRenderer]
-    template_name = 'cadastroReceita.html'
+class CadastroReceita(APIView):
 
     def get(self, request, format=None):
         return Response()
 
     def post(self, request, format=None):
-        serializer = ReceitaSerializer(data=request.data)
+        #print(json.loads(request.data['json_data']))
+        serializer = ReceitaSerializer(data=json.loads(request.data['json_data']))
+        #serializer = ReceitaSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -20,12 +20,13 @@ class ImagemSerializer(serializers.ModelSerializer):
 
 class ReceitaSerializer(serializers.ModelSerializer):
 
-    imagens =  serializers.PrimaryKeyRelatedField(many=True, queryset=Imagem.objects.all())
-    ingredientes = serializers.PrimaryKeyRelatedField(many=True, queryset=Ingrediente.objects.all())
+    imagens = ImagemSerializer(many=True)
+    ingredientes = IngredienteSerializer(many=True)
 
     class Meta:
         model = Receita
-        fields = ('dataCadastro',
+        fields = ('id',
+                  'dataCadastro',
                   'autor',
                   'nome_receita',
                   'descricao',
@@ -40,3 +41,32 @@ class ReceitaSerializer(serializers.ModelSerializer):
                   'metodo_cozimento',
                   'rating',
                   'num_votos')
+
+    def create(self, validated_data):
+
+        receita = Receita.objects.create(
+            autor = validated_data['autor'],
+            nome_receita = validated_data['nome_receita'],
+            descricao = validated_data['descricao'],
+            categoria = validated_data['categoria'],
+            procoes = validated_data['procoes'],
+            val_nutricional = validated_data['val_nutricional'],
+            tempo_preparo = validated_data['tempo_preparo'],
+            instrucoes_preparo = validated_data['instrucoes_preparo'],
+            metodo_cozimento = validated_data['metodo_cozimento'],
+            rating = validated_data['rating'],
+            num_votos =validated_data['num_votos']
+        )
+
+        ingredientes_json = validated_data['ingredientes']
+
+        for ingrediente_json in ingredientes_json:
+
+            ingrediente = Ingrediente.objects.create(
+                nome_ingrediente = ingrediente_json['nome_ingrediente'],
+                quantidade = ingrediente_json['quantidade'],
+                unidade = ingrediente_json['unidade'],
+                fk_receita_ingrediente = receita
+            )
+
+        return receita

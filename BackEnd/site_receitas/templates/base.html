@@ -30,7 +30,7 @@
 
         <div class="links_cadastro col s6 m6 l6">
           <!--Colocar nos href os caminhos para as respectivas páginas após incluir os urls.-->
-          <p style="text-align: right;"><a href="" class="white-text">Entrar</a><br/><a href="{% url 'Cadastrar Usuario' %}" class="white-text">Inscreva-se</a></p>
+          <p style="text-align: right;"><a href="" class="white-text">Entrar</a><br/><a href="{% url 'site_receitas:Cadastrar Usuario' %}" class="white-text">Inscreva-se</a></p>
         </div>
 
         <nav class="nav-wrapper col s3 m3 l3 card-panel red darken-4 valign-wrapper">
@@ -50,12 +50,12 @@
         <div class="nav-wrapper">
           <ul id="nav-mobile" class="left hide-on-med-and-down">
             <!--Colocar nos href os caminhos para as respectivas páginas após incluir os urls.-->
-            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'site_receitas:home' %}">Home</a></li>
             <li><a href="">Receitas</a></li>
-            <li><a href="{% url 'Salgados' %}">Salgados</a></li>
-            <li><a href="{% url 'Doces' %}">Doces</a></li>
-            <li><a href="{% url 'Bebidas' %}">Bebidas</a></li>
-            <li><a href="{% url 'Cadastrar Usuario' %}">Increva-se</a></li>
+            <li><a href="{% url 'site_receitas:Salgados' %}">Salgados</a></li>
+            <li><a href="{% url 'site_receitas:Doces' %}">Doces</a></li>
+            <li><a href="{% url 'site_receitas:Bebidas' %}">Bebidas</a></li>
+            <li><a href="{% url 'site_receitas:Cadastrar Usuario' %}">Increva-se</a></li>
           </ul>
         </div>
 
@@ -69,7 +69,7 @@
       <aside class="col s12 m4 l4 card-panel red darken-4">
         <!--Conteudo relacionado ao conteudo principal-->
         <ul class="collection">
-          <li class="collection-item card-panel red darken-4"><a href="{% url 'Cadastrar Receita' %}" class="white-text">Cadastrar Receita</a></li>
+          <li class="collection-item card-panel red darken-4"><a href="{% url 'site_receitas:Cadastrar Receita' %}" class="white-text">Cadastrar Receita</a></li>
           <li class="collection-item card-panel red darken-4"><a href="" class="white-text">Mais Acessadas</a></li>
           <li class="collection-item card-panel red darken-4"><a href="" class="white-text">Top 10 - Semana</a></li>
           <li class="collection-item card-panel red darken-4"><a href="" class="white-text">Usuários</a></li>
