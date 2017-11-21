@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<article class="row Salgados">
+  <h3>Salgados</h3>
+
+  <div class="row">
+
+    {% for salgado in salgados %}
+    <div class="col s12 m6 l4">
+      <div class="card medium">
+        <div class="card-image">
+          <a href="page/receitabolodecenoura.html"><img src="/{{ salgado.imagens.0.imagem }}" alt="Bolo de Cenoura"/></a>
+          <span class="card-title" style="text-transform: capitalize;">{{ salgado.nome_receita }}</span>
+        </div>
+
+        <div class="card-content">
+          <p>{{ salgado.descricao }}</p>
+          <p><b>Por: </b>{{ salgado.autor }}</p>
+          <p><b>Nota: </b>{{ salgado.rating }} ({{ salgado.num_votos }} avaliações)</p>
+        </div>
+
+        <div class="card-action">
+          <a href="page/receitabolodecenoura.html">Receita</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</article>
+{% endblock content %}

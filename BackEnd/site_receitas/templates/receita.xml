@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cookbook version="46">
+	<recipe>
+		<title>{{ receita.nome_receita }}</title>
+		<preptime>{{ receita.tempo_preparo }}</preptime>
+		<totaltime>{{ receita.tempo_preparo }}</totaltime>
+		<description>{{ receita.descricao }}</description>
+		<ingredient>
+			{% for ingrediente in receita.ingredientes %}
+		   	<li>{{ ingrediente.nome_ingrediente }}</li>
+			{% endfor %}
+		</ingredient>
+		<recipetext>
+			{{receita.instrucoes_preparo}}
+		</recipetext>
+		<url></url>
+		<video></video>
+		<quantity>{{receita.procoes}}</quantity>
+		<imagepath>http://127.0.0.1:8000/{{ receita.imagens.0.imagem }}</imagepath>
+
+		<comments></comments>
+		<source></source>
+		<video></video>
+		<nutrition>{{ receita.val_nutricional }}</nutrition>
+		<rating>{{ receita.rating }}</rating>
+		<category>
+			{% if receita.categoria == 'd' %}
+				Doces
+			{% elif receita.categoria == 's' %}
+				Salgados
+			{% elif receita.categoria == 'b' %}
+				Bebidas
+			{% else %}
+    			{{ receita.categoria }}
+			{% endif %}
+		</category>
+	</recipe>
+</cookbook>

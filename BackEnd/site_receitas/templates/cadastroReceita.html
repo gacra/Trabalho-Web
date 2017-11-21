@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-3.4.2.js"></script>
+<script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/enviar_receita.js' %}"></script>
+
+<script type="text/javascript">
+window.onload=function(){
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+}
+
+</script>
+
+<div class="row">
+  <h2>Adicionar receita</h2>
+  <form id="cadastroReceita" action="#" method="post" class="col s12">
+    {% csrf_token %}
+
+    <!--Autor-->
+    <div class="row">
+      <div class="input-field col s11 m8">
+        <label for="autor">Autor: </label>
+        <input type="text" name="autor" id="autor" maxlength="100" value="Nome do usuário logado" disabled size="30">
+      </div>
+    </div>
+
+    <!--Nome da receita-->
+    <div class="row">
+      <div class="input-field col s11 m8">
+        <label for="nome">Nome da receita: </label>
+        <input type="text" name="nome" id="nome" maxlength="50" required size="40">
+      </div>
+    </div>
+
+    <!--Descrição-->
+    <div class="row">
+      <div class="input-field col s11 m8">
+        <label for="descricao">Descrição da receita: </label>
+        <textarea class="materialize-textarea" id="descricao" rows="5" cols="40" maxlength="300" required></textarea>
+      </div>
+    </div>
+
+    <!--Imagens-->
+    <div class="row">
+
+      <div class="file-field input-field col s11 m8">
+        <div class="btn">
+          <span>Imagens</span>
+          <input type="file" name="imagens" id="imagens" required>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text" placeholder="Insira imagens da receita">
+        </div>
+      </div>
+
+      <div class="input-field col s12 m12 l12">
+          <button class="btn waves-effect waves-light" id="botaoImages" type="button" name="more">Nova imagem</button>
+      </div>
+    </div>
+
+    <!--Categoria-->
+    <div class="row">
+      <div class="input-field col s11 m8">
+        <select name="categoria" id="categoria">
+          <option value="" disabled selected>-- Escolha a categoria --</option>
+          <option value="d">Doce</option>
+          <option value="s">Salgado</option>
+          <option value="b">Bebida</option>
+        </select>
+        <label for="categorias">Categorias</label>
+      </div>
+    </div>
+
+    <!--Porções-->
+    <div class="row">
+      <div class="input-field col s12">
+        <label for="porcoes">Serve quantas pessoas? </label>
+        <input type="number" min="1" name="porcoes" id="porcoes" required>
+      </div>
+    </div>
+
+    <!--Valor nutricional-->
+    <div class="row">
+      <div class="input-field col s12">
+        <label for="nutri">Valor nutricional (calorias): </label>
+        <input type="number" min="1" name="nutri" id="nutri" required>
+      </div>
+    </div>
+
+    <!--Ingredientes-->
+    <div class="row">
+      <h3>Ingredientes</h3>
+
+      <!-- ko foreach: ingredientes -->
+      <div class="div_ingrediente">
+        <div class="input-field col s12 m5 l7">
+          <label for="nomeIngrediente">Nome: </label>
+          <input type="text" name="nomeIngrediente1" id="nomeIngrediente" required maxlength="50" data-bind="value: nomeIngrediente">
+        </div>
+        <div class="input-field col s5 m3 l2">
+          <label for="qtdeIngrediente">Quantidade: </label>
+          <input type="number" min="0.1" step="0.1" name="qtdeIngrediente" id="qtdeIngrediente" required data-bind="value: qtdeIngrediente">
+        </div>
+        <div class="input-field col s7 m4 l3">
+          <label for="unidadeIngrediente">Unidade: </label>
+          <input type="text" name="unidadeIngrediente1" id="unidadeIngrediente" required maxlength="50" data-bind="value: unidadeIngrediente">
+        </div>
+      </div>
+      <!-- /ko -->
+
+      <div class="input-field col s12 m6 l6">
+        <button data-bind="click: novoIngrediente" class="btn waves-effect waves-light" type="button" name="more">Novo ingrediente</button>
+      </div>
+
+      <div class="input-field col s12 m6 l6">
+        <button data-bind="click: removeIngrediente" class="btn waves-effect waves-light" type="button" name="more">Remove ingrediente</button>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <h3 id="preparo">Preparo</h3>
+    </div>
+
+    <!--Tempo de preparo-->
+    <div class="row">
+      <div class="input-field col s12">
+        <label for="tempo">Tempo de preparo (em minutos): </label>
+        <input type="number" min="1" name="tempo" id="tempo" required>
+      </div>
+    </div>
+
+    <!--Instruções de preparo-->
+    <div class="row">
+      <div class="input-field col s11 m8">
+        <label for="instrucoes">Instruções de preparo: </label>
+        <textarea class="materialize-textarea" id="instrucoes" rows="10" cols="40" maxlength="800" required></textarea>
+      </div>
+    </div>
+
+    <!--Método de cozimento-->
+    <div class="row">
+      <div class="input-field col s10 m6">
+        <label for="cozimento">Método de cozimento: </label>
+        <input type="text" name="cozimento" id="cozimento" maxlength="100" required maxlength="20">
+      </div>
+    </div>
+
+    <button class="btn waves-effect waves-light" type="submit" name="action">Cadastrar receita
+      <i class="material-icons right">restaurant</i>
+    </button>
+  </form>
+</div>
+
+
+{% endblock content %}
